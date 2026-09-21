@@ -3,11 +3,11 @@ use std::process::Command;
 
 fn main() {
     println!("cargo:rustc-link-lib=dylib=hackrf");
-    println!("cargo:rerun-if-env-changed=RF_HACKRF_LIB_DIR");
+    println!("cargo:rerun-if-env-changed=HACKRF_LIB_DIR");
 
     let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap_or_default();
 
-    if let Ok(dir) = env::var("RF_HACKRF_LIB_DIR") {
+    if let Ok(dir) = env::var("HACKRF_LIB_DIR") {
         println!("cargo:rustc-link-search=native={dir}");
         if target_os != "android" {
             println!("cargo:rustc-link-arg=-Wl,-rpath,{dir}");
